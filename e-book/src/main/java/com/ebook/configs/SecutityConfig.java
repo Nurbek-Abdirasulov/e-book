@@ -1,6 +1,6 @@
 package com.ebook.configs;
 
-import com.ebook.services.UserService;
+import com.ebook.services.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,11 +13,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class SecutityConfig extends WebSecurityConfigurerAdapter {
-    private UserService userService;
+    private UserDetailService userDetailService;
 
     @Autowired
-    public void setUserDetailsService(UserService userService) {
-        this.userService = userService;
+    public void setUserDetailsService(UserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
     }
 
 
@@ -45,7 +45,7 @@ public class SecutityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(userService);
+        authenticationProvider.setUserDetailsService(userDetailService);
         return authenticationProvider;
     }
 

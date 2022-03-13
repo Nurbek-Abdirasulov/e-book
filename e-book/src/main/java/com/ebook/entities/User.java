@@ -16,13 +16,17 @@ public class User {
 
     @Column(name = "username")
     private String username;
-
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "number_of_phone")
+    private Long number;
 
 
     @ManyToMany

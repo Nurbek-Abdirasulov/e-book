@@ -1,17 +1,18 @@
 package com.ebook.services;
 
 import com.ebook.entities.Vendor;
-import com.ebook.repositories.VendorRepository;
+import com.ebook.repositories.VendorRepsitory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VendorServiceImpl implements VendorService {
-    private final VendorRepository vendorRepository;
-
-    public VendorServiceImpl(VendorRepository vendorRepository) {
+public class VendorServiceImpl implements VendorService{
+    private final VendorRepsitory vendorRepository;
+    @Autowired
+    public VendorServiceImpl(VendorRepsitory vendorRepository) {
         this.vendorRepository = vendorRepository;
     }
 
@@ -39,12 +40,12 @@ public class VendorServiceImpl implements VendorService {
     }
 
     @Override
-    public Optional<Vendor> findByVendorname(String username) {
-        return vendorRepository.findByVendorname(username);
+    public Optional<Vendor> findByVendorname(String vendorname) {
+        return vendorRepository.findByVendorname(vendorname);
     }
 
     @Override
-    public Vendor saveUser(Vendor vendor) {
+    public Vendor saveVendor(Vendor vendor) {
         return vendorRepository.save(vendor);
     }
 }

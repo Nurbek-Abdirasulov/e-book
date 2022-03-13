@@ -28,6 +28,7 @@ public class SecutityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/vendor/**").hasAnyRole("VENDOR", "ADMIN")
                 .antMatchers("/read_profile/**").hasAuthority("READ_PROFILE")
+                /*.antMatchers("/api/registration/vendor/").hasRole("USER")*/
                 .and()
                 .formLogin()
                 .and()

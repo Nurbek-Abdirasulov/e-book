@@ -12,7 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
-public class SecutityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     private UserDetailService userDetailService;
 
     @Autowired
@@ -20,12 +21,11 @@ public class SecutityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailService = userDetailService;
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/authenticated/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("**/admin/**").hasRole("ADMIN")
                 .antMatchers("/vendor/**").hasAnyRole("VENDOR", "ADMIN")
                 .antMatchers("/read_profile/**").hasAuthority("READ_PROFILE")
                 /*.antMatchers("/api/registration/vendor/").hasRole("USER")*/

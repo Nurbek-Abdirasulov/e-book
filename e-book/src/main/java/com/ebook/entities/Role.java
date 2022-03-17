@@ -15,12 +15,13 @@ public class Role implements GrantedAuthority {
 
     private String name;
 
-
     @Override
     public String getAuthority() {
         return name;
     }
+
     public String getName() {
         return name;
     }
+
 }

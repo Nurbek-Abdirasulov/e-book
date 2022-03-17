@@ -4,8 +4,7 @@ import com.ebook.entities.User;
 import com.ebook.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +21,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> listUsers() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<User> listVendors() {
         return repository.findAll();
     }
 
@@ -44,7 +48,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser (User user) {
         return repository.save(user);
     }
+
+    @Override
+    public List<User> findByRole (String roles) {
+        return repository.findAllByRole(role);
+    }
+
+
 }

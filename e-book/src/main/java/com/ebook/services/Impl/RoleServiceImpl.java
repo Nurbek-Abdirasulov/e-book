@@ -1,7 +1,8 @@
-package com.ebook.services;
+package com.ebook.services.Impl;
 
 import com.ebook.entities.Role;
 import com.ebook.repositories.RoleRepository;
+import com.ebook.services.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

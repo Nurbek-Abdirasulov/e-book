@@ -1,6 +1,6 @@
 package com.ebook.entities;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "roles")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

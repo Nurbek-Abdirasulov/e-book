@@ -1,7 +1,8 @@
-package com.ebook.services;
+package com.ebook.services.Impl;
 
 import com.ebook.entities.User;
 import com.ebook.repositories.UserRepository;
+import com.ebook.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByRole (String roles) {
+    public List<User> findByRole (String role) {
         return repository.findAllByRole(role);
     }
 

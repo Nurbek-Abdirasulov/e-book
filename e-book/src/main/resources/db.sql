@@ -22,3 +22,5 @@ select * from vendors
 insert into vendors(vendor_email,vendor_last_name, vendor_number,password, vendor_name)
 values ('vendor111@gmail.com', 'vendorov', '8888888888', 'vendor', 'vendor')
 
+
+select * from books

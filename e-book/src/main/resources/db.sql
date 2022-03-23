@@ -24,3 +24,14 @@ values ('vendor111@gmail.com', 'vendorov', '8888888888', 'vendor', 'vendor')
 
 
 select * from books
+
+INSERT INTO genres(name)
+values('Education'),
+    ('Artistic literature'),
+    ('Books for children'),
+    ('Science and technology'),
+    ('Society'),
+    ('Business Literature'),
+    ('Beauty. Health. Sport'),
+    ('Hobbies'),
+    ('Psychology')

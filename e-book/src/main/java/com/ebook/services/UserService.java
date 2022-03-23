@@ -16,5 +16,6 @@ public interface UserService {
     Optional<User> findByUsername(String username);
     User saveUser(User user);
     List<User> findByRole(String role);
+    User getUserById(Long id);
 
 }

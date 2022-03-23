@@ -1,6 +1,6 @@
 package com.ebook.configs;
 
-import com.ebook.services.UserDetailService;
+import com.ebook.services.Impl.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

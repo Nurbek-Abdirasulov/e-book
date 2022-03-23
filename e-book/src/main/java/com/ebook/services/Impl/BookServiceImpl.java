@@ -1,6 +1,7 @@
 package com.ebook.services.Impl;
 
 import com.ebook.bucket.BucketName;
+import com.ebook.entities.AddBookIdRequest;
 import com.ebook.entities.Book;
 import com.ebook.repositories.BookRepository;
 import com.ebook.services.BookService;
@@ -63,13 +64,34 @@ public class BookServiceImpl implements BookService {
     @Override
     public byte[] downloadBookFile(Long id) {
         Book book=repository.findById(id).get();
-        return fileBooksStore.download(book.getBookLink(), book.getBookFileName());
+        String path = String.format("%s/%s", BucketName.INFORMATION.getBucketName(),
+                book.getId());
+        return book.getBookLink()
+                .map(key-> fileBooksStore.download(path, key))
+                        .orElse(new byte[0]);
     }
+
 
     @Override
     public List<Book> getAllBooks() {
         List<Book> books= new ArrayList<>();
         repository.findAll().forEach(books::add);
         return books;
+    }
+
+    @Override
+    public Book AddBookIdRequest(Long id) {
+        return repository.findById(id).get();
+    }
+
+    @Override
+    public Book getById(Long id) {
+        return repository.findById(id).get();
+    }
+
+
+    @Override
+    public Book save(Book book) {
+        return repository.save(book);
     }
 }

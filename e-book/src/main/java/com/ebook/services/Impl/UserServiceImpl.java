@@ -58,5 +58,10 @@ public class UserServiceImpl implements UserService {
         return repository.findAllByRole(role);
     }
 
+    @Override
+    public User getUserById(Long id) {
+        return repository.findById(id).get();
+    }
+
 
 }

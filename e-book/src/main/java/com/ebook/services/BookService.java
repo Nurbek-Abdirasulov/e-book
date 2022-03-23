@@ -1,6 +1,7 @@
 package com.ebook.services;
 
 
+import com.ebook.entities.AddBookIdRequest;
 import com.ebook.entities.Book;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +18,12 @@ public interface BookService {
             int discount, boolean bestseller,  MultipartFile file);
 
     byte[] downloadBookFile(Long id);
-
     List<Book> getAllBooks();
+    Book AddBookIdRequest(Long id);
+    Book getById(Long id);
+
+    Book save(Book book);
+
 
 }
 

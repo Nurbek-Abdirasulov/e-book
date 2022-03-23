@@ -31,7 +31,19 @@ public class Book {
     private int discount;
     private Boolean bestseller;
     private String bookLink;//s3
-    private String bookFileName;
+//    private String bookFileName;
+
+    public Optional<String> getBookLink() {
+        return Optional.ofNullable(bookLink);
+    }
+
+    public void setBookLink(String bookLink) {
+        this.bookLink = bookLink;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_books",
@@ -57,13 +69,6 @@ public class Book {
             inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Type> types;
 
-    public String getBookLink() {
-        return bookLink;
-    }
-
-    public void setBookLink(String bookLink) {
-        this.bookLink = bookLink;
-    }
 
 
     @Override

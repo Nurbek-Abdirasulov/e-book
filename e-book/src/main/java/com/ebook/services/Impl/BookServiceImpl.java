@@ -1,12 +1,13 @@
 package com.ebook.services.Impl;
 
 import com.ebook.bucket.BucketName;
-import com.ebook.entities.AddBookIdRequest;
+import com.ebook.dto.CreateBookRequest;
 import com.ebook.entities.Book;
 import com.ebook.repositories.BookRepository;
 import com.ebook.services.BookService;
 import com.ebook.services.FilesBooksStore.FileBooksStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import java.util.*;
 public class BookServiceImpl implements BookService {
     private final FileBooksStore fileBooksStore;
     private final BookRepository repository;
+
     @Autowired
     public BookServiceImpl(FileBooksStore fileBooksStore, BookRepository bookRepository) {
         this.fileBooksStore = fileBooksStore;
@@ -25,10 +27,25 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book saveBook(String name, String publisher, String author,
-                         String aboutBook, String fragments, int date,
-                         int volume, int quantity, int price, int discount,
-                         boolean bestseller, MultipartFile file) {
+    public Book create(CreateBookRequest request) {
+        Book book = Book.builder()
+                .name(request.getName())
+                .publisher(request.getPublisher())
+                .author(request.getAuthor())
+                .aboutBook(request.getAboutBook())
+                .fragment(request.getFragment())
+                .date(request.getDate())
+                .volume(request.getVolume())
+                .quantity(request.getQuantity())
+                .price(request.getPrice())
+                .discount(request.getDiscount())
+                .bestseller(request.getBestseller())
+                .build();
+        return repository.save(book);
+    }
+
+    @Override
+    public void uploadBookFile(Long bookId, MultipartFile file) {
         if (file.isEmpty()) {
             throw new IllegalStateException("Cannot upload empty file");
         }
@@ -36,62 +53,52 @@ public class BookServiceImpl implements BookService {
         Map<String, String> metadata = new HashMap<>();
         metadata.put("Content-Type", file.getContentType());
         metadata.put("Content-Length", String.valueOf(file.getSize()));
-        String path = String.format("%s/%s", BucketName.INFORMATION.getBucketName(), UUID.randomUUID());
+
+        String path = getBookPath(bookId);
         String fileName = String.format("%s", file.getOriginalFilename());
+
         try {
             fileBooksStore.upload(path, fileName, Optional.of(metadata), file.getInputStream());
         } catch (IOException e) {
             throw new IllegalStateException("Failed to upload file", e);
         }
-        Book book= Book.builder()
-                .name(name)
-                .publisher(publisher)
-                .author(author)
-                .aboutBook(aboutBook)
-                .fragment(fragments)
-                .date(date)
-                .volume(volume)
-                .quantity(quantity)
-                .price(price)
-                .discount(discount)
-                .bestseller(bestseller)
-                .build();
-        repository.save(book);
-        return repository.findByName(book.getName());
     }
 
-
     @Override
-    public byte[] downloadBookFile(Long id) {
-        Book book=repository.findById(id).get();
-        String path = String.format("%s/%s", BucketName.INFORMATION.getBucketName(),
-                book.getId());
+    public byte[] downloadBookFile(Long bookId) {
+        Book book = getById(bookId);
+        if (book == null) {
+            throw new IllegalStateException(String.format("Book %s not found", bookId));
+        }
+        String path = getBookPath(book.getId());
+
         return book.getBookLink()
-                .map(key-> fileBooksStore.download(path, key))
-                        .orElse(new byte[0]);
+                .map(key -> fileBooksStore.download(path, key))
+                .orElse(new byte[0]);
+    }
+
+    private String getBookPath(Long id) {
+        return String.format("%s/%s", BucketName.INFORMATION.getBucketName(), id);
     }
 
 
     @Override
     public List<Book> getAllBooks() {
-        List<Book> books= new ArrayList<>();
-        repository.findAll().forEach(books::add);
-        return books;
+        return repository.findAll();
     }
 
     @Override
-    public Book AddBookIdRequest(Long id) {
-        return repository.findById(id).get();
+    public @Nullable Book getById(Long bookId) {
+        return repository.findById(bookId).orElse(null);
     }
 
     @Override
-    public Book getById(Long id) {
-        return repository.findById(id).get();
-    }
-
-
-    @Override
-    public Book save(Book book) {
+    public Book replace(Book book) {
         return repository.save(book);
+    }
+
+    @Override
+    public List<Book> findAllByType(Long type_id) {
+        return repository.findAllByType(type_id);
     }
 }

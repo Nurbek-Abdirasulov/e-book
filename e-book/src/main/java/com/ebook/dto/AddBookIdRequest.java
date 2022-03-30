@@ -1,4 +1,4 @@
-package com.ebook.entities;
+package com.ebook.dto;
 
 
 public class AddBookIdRequest {

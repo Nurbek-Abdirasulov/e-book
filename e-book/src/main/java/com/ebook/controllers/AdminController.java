@@ -14,8 +14,8 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/admin")
 public class AdminController {
-    private UserService userService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
     public AdminController(UserService userService, RoleService roleService) {

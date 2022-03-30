@@ -16,6 +16,10 @@ public class Language {
     private Long id;
 
     private String name;
-    @ManyToMany(mappedBy = "types")
-    private List<Book> books;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "books_languages",
+//            joinColumns = @JoinColumn(name = "language_id"),
+//            inverseJoinColumns = @JoinColumn(name = "book_id"))
+//    private List<Book> books;
 }

@@ -18,6 +18,9 @@ public class Genre{
 
     private String name;
 
-    @ManyToMany(mappedBy = "types")
-    private List<Book> books;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "books_genres",
+//            joinColumns = @JoinColumn(name = "genre_id"),
+//            inverseJoinColumns = @JoinColumn(name = "book_id"))
+//    private List<Book> books;
 }

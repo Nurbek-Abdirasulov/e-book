@@ -1,30 +1,31 @@
 package com.ebook.services;
 
 
-import com.ebook.entities.AddBookIdRequest;
+import com.ebook.dto.CreateBookRequest;
 import com.ebook.entities.Book;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.InputStream;
 import java.util.List;
 
 @Service
 public interface BookService {
-    Book saveBook(String name,String publisher,
-            String author, String aboutBook,
-            String fragments, int date,
-            int volume, int quantity, int price,
-            int discount, boolean bestseller,  MultipartFile file);
+    Book create(CreateBookRequest request);
 
-    byte[] downloadBookFile(Long id);
+    byte[] downloadBookFile(Long bookId);
+
+    void uploadBookFile(Long bookId, MultipartFile file);
+
     List<Book> getAllBooks();
-    Book AddBookIdRequest(Long id);
-    Book getById(Long id);
 
-    Book save(Book book);
+    Book getById(Long bookId);
 
+    Book replace(Book book);
 
+    List <Book> findAllByType(Long type_id);
 }
 
 

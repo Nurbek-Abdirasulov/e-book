@@ -17,8 +17,8 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/registration")
 public class VendorRegistration {
-    private RoleService roleService;
-    private UserService userService;
+    private final RoleService roleService;
+    private final UserService userService;
 
     @Autowired
     public VendorRegistration(RoleService roleService, UserService userService ) {

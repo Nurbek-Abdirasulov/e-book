@@ -14,10 +14,10 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/registration")
+@RequestMapping("/api/registration/user")
 public class UserRegistration {
-    private UserService userService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
     @Autowired
     public UserRegistration(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -25,8 +25,8 @@ public class UserRegistration {
     }
 
     @CrossOrigin
-    @PostMapping("/user/")
-    public ResponseEntity<User> userRegistration(@RequestBody User user) {
+    @PostMapping
+    public ResponseEntity<User> create(@RequestBody User user) {
         try {
             Set<Role> roles = new HashSet<>();
             roles.add(roleService.getRoleByName("ROLE_USER"));

@@ -34,7 +34,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public Type getTypeByName(String name) {
-        return repository.getAllByName(name);
+        return repository.getTypeByName(name);
     }
 
     @Override

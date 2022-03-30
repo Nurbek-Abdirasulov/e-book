@@ -31,7 +31,6 @@ public class Book {
     private int discount;
     private Boolean bestseller;
     private String bookLink;//s3
-//    private String bookFileName;
 
     public Optional<String> getBookLink() {
         return Optional.ofNullable(bookLink);
@@ -54,22 +53,20 @@ public class Book {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "books_genres",
             joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<Genre> genres;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "books_languages",
             joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "language_id"))
     private Set<Language> languages;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "books_types",
             joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "type_id"))
     private Set<Type> types;
-
-
 
     @Override
     public boolean equals(Object o) {

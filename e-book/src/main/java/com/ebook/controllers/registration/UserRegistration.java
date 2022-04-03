@@ -18,6 +18,7 @@ import java.util.Set;
 public class UserRegistration {
     private final UserService userService;
     private final RoleService roleService;
+
     @Autowired
     public UserRegistration(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -26,7 +27,7 @@ public class UserRegistration {
 
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<User> userRegistration(@RequestBody User user) {
         try {
             Set<Role> roles = new HashSet<>();
             roles.add(roleService.getRoleByName("ROLE_USER"));
@@ -36,5 +37,4 @@ public class UserRegistration {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
 }

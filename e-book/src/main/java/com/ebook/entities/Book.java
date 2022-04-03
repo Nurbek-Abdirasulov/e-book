@@ -30,7 +30,7 @@ public class Book {
     private int price;
     private int discount;
     private Boolean bestseller;
-    private String bookLink;//s3
+    private String bookLink;
 
     public Optional<String> getBookLink() {
         return Optional.ofNullable(bookLink);

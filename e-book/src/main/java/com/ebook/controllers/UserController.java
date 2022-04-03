@@ -1,5 +1,4 @@
-package com.ebook.controllers.registration;
-
+package com.ebook.controllers;
 
 import com.ebook.entities.Role;
 import com.ebook.entities.User;
@@ -15,26 +14,27 @@ import java.util.Set;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/registration")
-public class VendorRegistration {
-    private final RoleService roleService;
+@RequestMapping("/api/user/")
+public class UserController {
+
     private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public VendorRegistration(RoleService roleService, UserService userService ) {
+    public UserController(UserService userService, RoleService roleService) {
+        this.userService = userService;
         this.roleService = roleService;
-        this.userService=userService;
     }
 
+    @PutMapping
     @CrossOrigin
-    @PostMapping("/vendor/")
-    public ResponseEntity<User> vendorRegistration(@RequestBody  User user) {
+    public ResponseEntity<User> updateUser(@RequestBody User user){
         try {
             Set<Role> roles = new HashSet<>();
-            roles.add(roleService.getRoleByName("ROLE_VENDOR"));
+            roles.add(roleService.getRoleByName("ROLE_USER"));
             user.setRoles(roles);
             return new ResponseEntity<>(
-                    userService.saveUser(user), HttpStatus.OK);
+                    userService.updateUser(user), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

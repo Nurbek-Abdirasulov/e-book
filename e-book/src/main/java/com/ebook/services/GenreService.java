@@ -7,7 +7,12 @@ import java.util.List;
 @Service
 public interface GenreService {
     List<Genre> getAllGenres();
-    List<String> getNamesOfGenresToList();
-    Genre getGenreByName(String name);
+
     Genre getGenreById(Long id);
+
+    Genre saveGenre(Genre genre);
+
+    void deleteGenre(Long id);
+
+    Genre updateGenre(Genre genre);
 }

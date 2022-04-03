@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.*;
 
-
 @Service
 public class BookServiceImpl implements BookService {
     private final FileBooksStore fileBooksStore;
@@ -81,7 +80,6 @@ public class BookServiceImpl implements BookService {
         return String.format("%s/%s", BucketName.INFORMATION.getBucketName(), id);
     }
 
-
     @Override
     public List<Book> getAllBooks() {
         return repository.findAll();
@@ -100,5 +98,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findAllByType(Long type_id) {
         return repository.findAllByType(type_id);
+    }
+
+    @Override
+    public List<Book> findAllByLanguage(Long language_id) {
+        return repository.findAllByLanguage(language_id);
+    }
+
+    @Override
+    public List<Book> findAllByGenre(Long genre_id) {
+        return repository.findAllByGenres(genre_id);
+    }
+
+    @Override
+    public List<Book> getBookByName(String nameFragment) {
+        return repository.getBookByName(nameFragment);
     }
 }

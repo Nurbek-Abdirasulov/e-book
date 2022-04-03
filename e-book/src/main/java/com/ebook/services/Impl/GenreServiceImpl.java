@@ -24,20 +24,22 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public List<String> getNamesOfGenresToList() {
-        List<Genre> genres = repository.findAll();
-        List<String> stringList=genres.stream()
-                .map(genre-> genre.getName()).collect(Collectors.toList());
-        return stringList;
-    }
-
-    @Override
-    public Genre getGenreByName(String name) {
-        return repository.getGenreByName(name);
-    }
-
-    @Override
     public Genre getGenreById(Long id) {
         return repository.findById(id).get();
+    }
+
+    @Override
+    public Genre saveGenre(Genre genre) {
+        return repository.save(genre);
+    }
+
+    @Override
+    public void deleteGenre(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public Genre updateGenre(Genre genre) {
+        return repository.save(genre);
     }
 }

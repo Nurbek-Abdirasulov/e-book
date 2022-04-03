@@ -25,7 +25,13 @@ public interface BookService {
 
     Book replace(Book book);
 
-    List <Book> findAllByType(Long type_id);
+    List<Book> findAllByType(Long type_id);
+
+    List<Book> findAllByLanguage(Long language_id);
+
+    List<Book> findAllByGenre(Long genre_id);
+
+    List<Book> getBookByName(String nameFragment);
 }
 
 

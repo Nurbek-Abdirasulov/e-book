@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -25,20 +24,22 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<String> getNamesOfTypesToList() {
-        List<Type> types = repository.findAll();
-        List<String> stringList= types.stream()
-                .map(type -> type.getName()).collect(Collectors.toList());
-        return stringList;
-    }
-
-    @Override
-    public Type getTypeByName(String name) {
-        return repository.getTypeByName(name);
-    }
-
-    @Override
     public Type getTypeById(Long id) {
         return repository.findById(id).get();
+    }
+
+    @Override
+    public Type saveType(Type type) {
+        return repository.save(type);
+    }
+
+    @Override
+    public void deleteType(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public Type updateType(Type type) {
+        return repository.save(type);
     }
 }

@@ -11,6 +11,4 @@ public class AddBookIdRequest {
     public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
-
-
 }

@@ -8,14 +8,17 @@ import java.util.Optional;
 
 @Service
 public interface UserService {
-    void addUser(User user);
-    List<User> listUsers();
-    List<User> listVendors();
     void deleteUser(Long id);
+
     User getById(Long id);
+
     Optional<User> findByUsername(String username);
+
     User saveUser(User user);
+
     List<User> findByRole(String role);
+
     User getUserById(Long id);
 
+    User updateUser(User user);
 }

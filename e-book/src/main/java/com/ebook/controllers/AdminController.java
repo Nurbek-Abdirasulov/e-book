@@ -43,7 +43,7 @@ public class AdminController {
 
     @DeleteMapping("/{id}")
     @CrossOrigin
-    public String deleteById(@PathVariable("id") Long userId) {
+    public String deleteUserById(@PathVariable("id") Long userId) {
         try {
             userService.deleteUser(userId);
             return "User with ID = " + userId + " was successfully deleted.";
@@ -53,7 +53,7 @@ public class AdminController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<User> getById(@PathVariable("id") Long id) {
+    private ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         try {
             return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
         } catch (Exception e) {

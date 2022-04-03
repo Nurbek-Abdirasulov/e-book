@@ -7,27 +7,17 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "username")
     private String username;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "number_of_phone")
     private Long number;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -35,13 +25,5 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
 
 }

@@ -35,42 +35,43 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> getAll() {
+    public ResponseEntity<List<Book>> getAllBooks() {
         return new ResponseEntity<>(bookService.getAllBooks(), HttpStatus.OK);
     }
 
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Book> create(CreateBookRequest request) {
+    public ResponseEntity<Book> createBook(CreateBookRequest request) {
         Book saved = bookService.create(request);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-    @GetMapping("/types/{type_id}")
-    public ResponseEntity<List<Book>> getAllBooksByType(@PathVariable Long type_id){
-        return new ResponseEntity<>(bookService.findAllByType(type_id), HttpStatus.OK);
+    @GetMapping("/type/{typeId}")
+    public ResponseEntity<List<Book>> getAllBooksByType(@PathVariable Long typeId){
+        return new ResponseEntity<>(bookService.findAllByType(typeId), HttpStatus.OK);
     }
 
+    @GetMapping("/language/{languageId}")
+    public ResponseEntity<List<Book>> getAllBooksByLanguage(@PathVariable Long languageId){
+        return new ResponseEntity<>(bookService.findAllByLanguage(languageId), HttpStatus.OK);
+    }
 
+    @GetMapping("/genre/{genreId}")
+    public ResponseEntity<List<Book>> getAllByGenre(@PathVariable Long genreId){
+        return new ResponseEntity<>(bookService.findAllByGenre(genreId), HttpStatus.OK);
+    }
 
-
-//    @GetMapping("/users")
-//    private ResponseEntity<List<User>> getAllUsers() {
-//        try {
-//            return new ResponseEntity<>(userService.findByRole("ROLE_USER"), HttpStatus.OK);
-//        } catch (Exception ex) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
-
+    @GetMapping("/{bookName}")
+    public ResponseEntity<List<Book>> getBooksByName(@PathVariable String bookName){
+        return new ResponseEntity<>(bookService.getBookByName(bookName), HttpStatus.OK);
+    }
 
     @GetMapping(
             path = "/{bookId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Book> get(@PathVariable Long bookId) {
+    public ResponseEntity<Book> getBookById(@PathVariable Long bookId) {
         Book book = bookService.getById(bookId);
         if (book == null) {
             return ResponseEntity.notFound().build();
@@ -83,7 +84,7 @@ public class BookController {
             path = "/{bookId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Book> patch(@PathVariable Long bookId,
+    public ResponseEntity<Book> patchBook(@PathVariable Long bookId,
                                       @RequestBody PatchBookRequest patchRequest) {
         Book book = bookService.getById(bookId);
         if (patchRequest.getGenreId() != null) {

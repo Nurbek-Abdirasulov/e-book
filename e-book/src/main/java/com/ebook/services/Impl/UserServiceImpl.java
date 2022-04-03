@@ -16,21 +16,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
-        repository.save(user);
-    }
-
-    @Override
-    public List<User> listUsers() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<User> listVendors() {
-        return repository.findAll();
-    }
-
-    @Override
     public void deleteUser(Long id) {
         repository.deleteById(id);
     }
@@ -63,5 +48,8 @@ public class UserServiceImpl implements UserService {
         return repository.findById(id).get();
     }
 
-
+    @Override
+    public User updateUser(User user) {
+        return repository.save(user);
+    }
 }

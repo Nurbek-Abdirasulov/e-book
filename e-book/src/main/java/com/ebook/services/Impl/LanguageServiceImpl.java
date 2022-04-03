@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LanguageServiceImpl implements LanguageService {
@@ -24,20 +23,22 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public List<String> getNamesOfLanguagesToList() {
-        List<Language> languages= repository.findAll();
-        List<String> stringList = languages.stream()
-                .map(language -> language.getName()).collect(Collectors.toList());
-        return stringList;
-    }
-
-    @Override
-    public Language getLanguageByName(String name) {
-        return repository.getLanguageByName(name);
-    }
-
-    @Override
     public Language getLanguageById(Long id) {
         return repository.findById(id).get();
+    }
+
+    @Override
+    public Language saveLanguage(Language language) {
+        return repository.save(language);
+    }
+
+    @Override
+    public void deleteLanguage(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public Language updateLanguage(Language language) {
+        return repository.save(language);
     }
 }

@@ -8,7 +8,12 @@ import java.util.List;
 @Service
 public interface TypeService {
     List<Type> getAllTypes();
-    List<String> getNamesOfTypesToList();
-    Type getTypeByName(String name);
+
     Type getTypeById(Long id);
+
+    Type saveType(Type type);
+
+    void deleteType(Long id);
+
+    Type updateType(Type type);
 }

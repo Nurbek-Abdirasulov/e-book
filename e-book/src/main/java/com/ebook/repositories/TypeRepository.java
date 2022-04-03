@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TypeRepository extends JpaRepository<Type, Long> {
     Type getTypeByName(String name);
-
 }

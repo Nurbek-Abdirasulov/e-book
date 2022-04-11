@@ -21,29 +21,49 @@ public class TypeController {
     @GetMapping
     @CrossOrigin
     public ResponseEntity<List<Type>> getAllTypes(){
-        return new ResponseEntity<>(typeService.getAllTypes(), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(typeService.getAllTypes(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{typeId}")
     public String deleteType(@PathVariable ("typeId") Long typeId){
-        typeService.deleteType(typeId);
-        return "Type with ID = " + typeId + " was successfully deleted.";
+        try {
+            typeService.deleteType(typeId);
+            return "Type with ID = " + typeId + " was successfully deleted.";
+        }catch (Exception e){
+            return String.valueOf(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping
     @CrossOrigin
     public ResponseEntity<Type> addType(@RequestBody Type type){
-        return new ResponseEntity<>(typeService.saveType(type), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(typeService.saveType(type), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping
     @CrossOrigin
     public ResponseEntity<Type> updateType(@RequestBody Type type){
-        return new ResponseEntity<>(typeService.updateType(type), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(typeService.updateType(type), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{typeId}")
     public ResponseEntity<Type> getTypeById(@PathVariable("typeId") Long typeId){
-        return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

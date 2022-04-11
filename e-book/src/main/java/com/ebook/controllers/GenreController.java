@@ -24,30 +24,50 @@ public class GenreController {
     @GetMapping
     @CrossOrigin
     public ResponseEntity<List<Genre>> getAllGenres(){
-        return new ResponseEntity<>(genreService.getAllGenres(), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(genreService.getAllGenres(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{genreId}")
     @CrossOrigin
     public String deleteGenre(@PathVariable("genreId") Long genreId){
-        genreService.deleteGenre(genreId);
-        return "Genre with ID = " + genreId + " was successfully deleted.";
+        try {
+            genreService.deleteGenre(genreId);
+            return "Genre with ID = " + genreId + " was successfully deleted.";
+        }catch (Exception e){
+            return String.valueOf(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping
     @CrossOrigin
     public ResponseEntity<Genre> addGenre(@RequestBody Genre genre){
-        return new ResponseEntity<>(genreService.saveGenre(genre), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(genreService.saveGenre(genre), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping
     @CrossOrigin
     public ResponseEntity<Genre> updateGenre(@RequestBody Genre genre){
-        return new ResponseEntity<>(genreService.updateGenre(genre), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(genreService.updateGenre(genre), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{genreId}")
     public ResponseEntity<Genre> getGenreById(@PathVariable("genreId") Long genreId){
-        return new ResponseEntity<>(genreService.getGenreById(genreId), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(genreService.getGenreById(genreId), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
